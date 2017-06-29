@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{page_title}}</title>
+
+        <style>
+
+            textarea {
+                margin: 10px;
+                width: 540px;
+                height: 120px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            a {
+                margin: 10px;
+            }
+
+            .error {
+                color: red;
+            }
+
+            .button {
+                margin: 10px;
+            }
+
+        </style>
+
+    </head>
+<body>
+
+    <a href="{{ url_for('index') }}"> Main Blog Page </a>
+    <a href="{{ url_for('go_to_entry') }}"> Add a Blog Entry </a>
+
+
+    <h1>{{page_title}}</h1>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
