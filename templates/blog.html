@@ -9,7 +9,7 @@
     {% for blog in blogs %}
     <form action='/page' method='get'>
         <input type='hidden' name='blog-id' value='{{blog.id}}'/>
-        <h2><a href='/page?id=5'>{{blog.title}}</a></h2>
+        <h2><a href='/page?id={{blog.id}}'>{{blog.title}}</a></h2>
         <p>{{blog.body}}</p>
     </form>
 
