@@ -3,6 +3,17 @@
 {% block content %}
 
             <p>{{entry}}</p>
+
+
+            <p class="written-by">
+                written by 
+                <a href='/blog?user_id={{blog.owner_id}}'>{{users[blog.owner_id - 1].username}}</a>
+            </p>
+
+
+
+
+
             <hr/>
 
 {% endblock %}

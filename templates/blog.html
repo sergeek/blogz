@@ -6,11 +6,17 @@
     <p>No blogs yet</p>
     {% else %}
 
-    {% for blog in blogs %}
-    <form action='/page' method='get'>
+    {% for blog in blogs | reverse %}
+    <form action='/page' method='get' class='blog_page'>
         <input type='hidden' name='blog-id' value='{{blog.id}}'/>
         <h2><a href='/page?id={{blog.id}}'>{{blog.title}}</a></h2>
         <p>{{blog.body}}</p>
+
+
+        <p class="written-by">
+            written by 
+            <a href='/blog?user_id={{blog.owner_id}}'>{{users[blog.owner_id - 1].username}}</a>
+        </p>
     </form>
 
     <hr />

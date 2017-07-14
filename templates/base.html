@@ -11,34 +11,44 @@
                 height: 120px;
             }
 
-            h1 {
-                text-align: center;
-            }
-
-            a {
-                margin: 10px;
-            }
-
-            .error {
-                color: red;
-            }
-
-            .button {
-                margin: 10px;
-            }
+            h1 { text-align: center; }
+            
+            .links { margin: 10px; }
+            .error { color: red; }
+            .button { margin: 10px; }
+            .status { float: right; }
+            .users { margin-left: 200px; }
+            .written-by { font-style: italic; font-size: 15px; }
+            
 
         </style>
 
     </head>
 <body>
 
-    <a href="{{ url_for('index') }}"> Main Blog Page </a>
-    <a href="{{ url_for('go_to_entry') }}"> Add a Blog Entry </a>
+    <a class='links' href="{{ url_for('index') }}"> Home </a>
+    <a class='links' href="{{ url_for('blog_page') }}"> All Posts </a>
+    <a class='links' href="{{ url_for('go_to_entry') }}"> Add a Blog Entry </a>
+    
+
+    <div class="status">
+        <a class='links' href='/login'>log in</a>
+        <a class='links' href='/logout'>log out</a>
+    </div>
+
+     <h1>{{page_title}}</h1>
 
 
-    <h1>{{page_title}}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category,message in messages %}
+            <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
+   
     {% block content %}
     {% endblock %}
-
 </body>
 </html>
