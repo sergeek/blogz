@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash
 
 from flask_sqlalchemy import SQLAlchemy 
 import hashlib
+import os
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
