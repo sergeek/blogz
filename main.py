@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 
 from flask_sqlalchemy import SQLAlchemy 
+import hashlib
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -45,13 +46,19 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+
+
+
+        password_hash = hashlib.sha256(str.encode(password)).hexdigest()
+
+
         user = User.query.filter_by(username=email).first()
 
-        if user and user.password == password:
+        if user and user.password == password_hash:
             session['email'] = email
             flash("Logged in")
             return render_template('entry.html')
-        elif user and user.password != password:
+        elif user and user.password != password_hash:
             flash('User password incorrect', 'error')
             return render_template('login.html')
         else:
@@ -67,6 +74,7 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        password_hash = hashlib.sha256(str.encode(password)).hexdigest()
         verify = request.form['verify']
 
         if len(email) < 3:
@@ -81,7 +89,7 @@ def register():
 
         existing_user = User.query.filter_by(username=email).first()
         if not existing_user:
-            new_user = User(email, password)
+            new_user = User(email, password_hash)
             db.session.add(new_user)
             db.session.commit()
 
@@ -151,7 +159,8 @@ def entry():
         db.session.add(new_blog)
         db.session.commit()
     
-    return render_template('page.html', entry=entry, page_title=title)
+    users = User.query.all()
+    return render_template('page.html', entry=entry, page_title=title, blog=new_blog, users=users)
 
 
 @app.route('/blog', methods=['GET'])
