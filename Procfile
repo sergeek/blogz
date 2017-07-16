@@ -1,1 +1,1 @@
-web: main manage:app
+web: main:app
